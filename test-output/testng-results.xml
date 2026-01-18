@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testng-results ignored="0" total="4" passed="4" failed="0" skipped="0">
+  <reporter-output>
+  </reporter-output>
+  <suite started-at="2026-01-18T16:45:07 IST" name="Default suite" finished-at="2026-01-18T16:45:41 IST" duration-ms="34157">
+    <groups>
+    </groups>
+    <test started-at="2026-01-18T16:45:07 IST" name="Default test" finished-at="2026-01-18T16:45:41 IST" duration-ms="34157">
+      <class name="TestPack.TestClass">
+        <test-method is-config="true" signature="openChromeBrowser()[pri:0, instance:TestPack.TestClass@45752059]" started-at="2026-01-18T16:45:07 IST" name="openChromeBrowser" finished-at="2026-01-18T16:45:11 IST" duration-ms="4657" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- openChromeBrowser -->
+        <test-method is-config="true" signature="BeforeClass()[pri:0, instance:TestPack.TestClass@45752059]" started-at="2026-01-18T16:45:11 IST" name="BeforeClass" finished-at="2026-01-18T16:45:27 IST" duration-ms="15998" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- BeforeClass -->
+        <test-method signature="TestA()[pri:0, instance:TestPack.TestClass@45752059]" started-at="2026-01-18T16:45:27 IST" name="TestA" finished-at="2026-01-18T16:45:31 IST" duration-ms="4072" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- TestA -->
+        <test-method signature="TestB()[pri:0, instance:TestPack.TestClass@45752059]" started-at="2026-01-18T16:45:31 IST" name="TestB" finished-at="2026-01-18T16:45:36 IST" duration-ms="4382" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- TestB -->
+        <test-method signature="TestC()[pri:0, instance:TestPack.TestClass@45752059]" started-at="2026-01-18T16:45:36 IST" name="TestC" finished-at="2026-01-18T16:45:38 IST" duration-ms="1989" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- TestC -->
+        <test-method signature="TestD()[pri:0, instance:TestPack.TestClass@45752059]" started-at="2026-01-18T16:45:38 IST" name="TestD" finished-at="2026-01-18T16:45:41 IST" duration-ms="2951" status="PASS">
+          <reporter-output>
+          </reporter-output>
+        </test-method> <!-- TestD -->
+      </class> <!-- TestPack.TestClass -->
+    </test> <!-- Default test -->
+  </suite> <!-- Default suite -->
+</testng-results>
