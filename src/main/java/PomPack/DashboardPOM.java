@@ -19,17 +19,24 @@ public class DashboardPOM {
 	@FindBy (css = "button[title='Assign Leave'] svg")
 	private WebElement assignLeave;
 	
-	@FindBy (xpath = "//h6[text()='Assign Leave']")
-	private WebElement assignLeaveHeader;
+
 	
 	@FindBy (xpath = "//button[@title='Leave List']//*[name()='svg']")
 	private WebElement leaveList;
 	
-	@FindBy (xpath = "//h5[text()='Leave List']")
-	private WebElement leaveListHeader;
+	
 	
 	@FindBy (xpath = "//button[@title='Timesheets']")
 	private WebElement timesheets;
+	
+	@FindBy (xpath = "//div[@title='Apply Leave']/preceding-sibling::button")
+	private WebElement applyLeave;
+	
+	@FindBy(xpath = "//button[@title='My Leave']")
+	private WebElement myLeave;
+	
+	@FindBy (xpath = "//button[@title='My Timesheet']")
+	private WebElement myTimesheet;
 	
 	public DashboardPOM(WebDriver driver) {
 		PageFactory.initElements(driver, this);
@@ -51,20 +58,24 @@ public class DashboardPOM {
 		assignLeave.click();
 	}
 	
-	public boolean isAssignLeaveDisplayed() {
-		return assignLeaveHeader.isDisplayed();
-	}
-	
 	public void clickOnLeaveList() {
 		leaveList.click();
 	}
 	
-	public boolean isLeaveListDisplayed() {
-		return leaveListHeader.isDisplayed();
-	}
-	
 	public void clickOnTimesheets() {
 		timesheets.click();
+	}
+	
+	public void clickOnApplyLeave() {
+		applyLeave.click();
+	}
+	
+	public void clickOnMyLeave() {
+		myLeave.click();
+	}
+	
+	public void clickOnMyTimesheet() {
+		myTimesheet.click();
 	}
 	
 	String LeaveList = "https://opensource-demo.orangehrmlive.com/web/index.php/leave/viewLeaveList";
