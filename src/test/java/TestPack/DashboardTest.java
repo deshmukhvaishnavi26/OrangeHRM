@@ -4,6 +4,7 @@ import java.io.IOException;
 
 import org.apache.poi.EncryptedDocumentException;
 import org.testng.annotations.*;
+import org.testng.asserts.SoftAssert;
 
 import BasePack.BaseClass;
 import PomPack.DashboardPOM;
@@ -22,6 +23,8 @@ public class DashboardTest extends BaseClass {
 	MenuBarPOM menubar;
 	LeavePOM leave;
 	
+	SoftAssert soft;
+	
 	@BeforeClass
 	public void beforeClass() {
 		login = new LoginPOM(driver);
@@ -29,6 +32,8 @@ public class DashboardTest extends BaseClass {
 		time = new TimePOM(driver);
 		menubar = new MenuBarPOM(driver);
 		leave = new LeavePOM(driver);
+		
+		soft = new SoftAssert();
 		
 		String loginUrl = "https://opensource-demo.orangehrmlive.com/web/index.php/auth/login";
 		Assert.assertEquals(loginUrl, driver.getCurrentUrl());
@@ -50,70 +55,56 @@ public class DashboardTest extends BaseClass {
 		Assert.assertTrue(dashboard.isDashboardDisplayed());;
 		System.out.println("Dashboard is Displayed Successfully!");
 	}
+
 	
 	@Test
-	public void TestB()  {
-		System.out.println("TestB");
-		System.out.println("Verify Assign Leave Quick Launch navigation");
+	public void TestB() {
+		System.out.println("Test B");
+		System.out.println("Verify All Quick Launches");
 		dashboard.clickOnAssignLeave();
-		Assert.assertTrue(leave.isAssignLeaveDisplayed());
+		soft.assertTrue(leave.isAssignLeaveDisplayed());
 		System.out.println("Navigated to Assign Leave Successfully!");
+		menubar.clickOnDashboardMenu();
+		dashboard.clickOnLeaveList();
+		soft.assertTrue(leave.isLeaveListDisplayed());
+		System.out.println("Navigated to Leave List Successfully!");
+		menubar.clickOnDashboardMenu();
+		dashboard.clickOnTimesheets();
+		soft.assertTrue(time.isTimeHeaderDisplayed());
+		System.out.println("Navigated to Timesheets Successfully!");
+		menubar.clickOnDashboardMenu();
+		dashboard.clickOnApplyLeave();
+		soft.assertTrue(leave.isApplyLeaveDisplayed());
+		System.out.println("Navigated to Apply Leave Successfully!");
+		menubar.clickOnDashboardMenu();
+		dashboard.clickOnMyLeave();
+		soft.assertTrue(leave.isMyLeaveDisplayed());
+		System.out.println("Navigated to My Leave Successfully!");
+		menubar.clickOnDashboardMenu();
+		dashboard.clickOnMyTimesheet();
+		soft.assertTrue(time.isMyTimesheetDisplayed());
+		System.out.println("Navigated to My Timesheet Successfully!");
+		soft.assertAll();
 	}
 	
 	@Test
 	public void TestC() {
-		System.out.println("TestC");
-		System.out.println("Verify Leave List Quick Launch navigation");
-		menubar.clickOnDashboardMenu();
-		dashboard.clickOnLeaveList();
-		Assert.assertTrue(leave.isLeaveListDisplayed());
-		System.out.println("Navigated to Leave List Successfully!");
+		System.out.println("Test C");
+		System.out.println("Verify All Widgets are Displayed");
+		soft.assertTrue(dashboard.isTimeAtWorkDisplayed());
+		soft.assertTrue(dashboard.isMyActionsDisplayed());
+		soft.assertTrue(dashboard.isQuickLaunchDisplayed());
+		soft.assertTrue(dashboard.isBuzzPostsDisplayed());
+		soft.assertTrue(dashboard.isDistributionByUnitDisplayed());
+		soft.assertTrue(dashboard.isDistributionByLocationDisplayed());
+		System.out.println("All Widgets displayed Successfully!");
+		soft.assertAll();
 	}
 	
-	@Test
-	public void TestD() throws InterruptedException {
-		System.out.println("TestD");
-		System.out.println("Verify Timesheets Quick Launch navigation");
-		menubar.clickOnDashboardMenu();
-		dashboard.clickOnTimesheets();
-		Assert.assertTrue(time.isTimeHeaderDisplayed());
-		System.out.println("Navigated to Timesheets Successfully!");
-	}
-	
-	@Test
-	public void TestE(){
-		System.out.println("TestE");
-		System.out.println("Verify Apply Leave Quick Launch navigation");
-		menubar.clickOnDashboardMenu();
-		dashboard.clickOnApplyLeave();
-		Assert.assertTrue(leave.isApplyLeaveDisplayed());
-		System.out.println("Navigated to Apply Leave Successfully!");
-	}
-	
-	@Test
-	public void TestF() {
-		System.out.println("TestF");
-		System.out.println("Verify My Leave Quick Launch navigation");
-		menubar.clickOnDashboardMenu();
-		dashboard.clickOnMyLeave();
-		Assert.assertTrue(leave.isMyLeaveDisplayed());
-		System.out.println("Navigated to My Leave Successfully!");
-	}
-	
-	@Test
-	public void TestG() {
-		System.out.println("TestG");
-		System.out.println("Verify My Timesheet Quick Launch navigation");
-		menubar.clickOnDashboardMenu();
-		dashboard.clickOnMyTimesheet();
-		Assert.assertTrue(time.isMyTimesheetDisplayed());
-		System.out.println("Navigated to My Leave Successfully!");
-	}
-	
-	//verify all widgets are displayed 
 	
 	@AfterMethod
 	public void logout() {
+		menubar.clickOnDashboardMenu();
 		dashboard.clickOnUserProfile();
 		dashboard.clickOnLogout();
 		System.out.println("Logout Successfully!");

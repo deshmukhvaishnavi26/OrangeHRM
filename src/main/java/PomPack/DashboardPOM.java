@@ -19,12 +19,8 @@ public class DashboardPOM {
 	@FindBy (css = "button[title='Assign Leave'] svg")
 	private WebElement assignLeave;
 	
-
-	
 	@FindBy (xpath = "//button[@title='Leave List']//*[name()='svg']")
 	private WebElement leaveList;
-	
-	
 	
 	@FindBy (xpath = "//button[@title='Timesheets']")
 	private WebElement timesheets;
@@ -37,6 +33,24 @@ public class DashboardPOM {
 	
 	@FindBy (xpath = "//button[@title='My Timesheet']")
 	private WebElement myTimesheet;
+	
+	@FindBy (xpath = "//p[text()='Time at Work']")
+	private WebElement timeAtWork;
+	
+	@FindBy (xpath = "//p[text()='My Actions']")
+	private WebElement myActions;
+	
+	@FindBy (xpath = "//p[text()='Quick Launch']")
+	private WebElement quickLaunch;
+	
+	@FindBy (xpath = "//p[text()='Buzz Latest Posts']")
+	private WebElement buzzPosts;
+	
+	@FindBy (xpath = "//p[text()='Employee Distribution by Sub Unit']")
+	private WebElement distributionByUnit;
+	
+	@FindBy (xpath = "//p[text()='Employee Distribution by Location']")
+	private WebElement distributionByLocation;
 	
 	public DashboardPOM(WebDriver driver) {
 		PageFactory.initElements(driver, this);
@@ -78,5 +92,27 @@ public class DashboardPOM {
 		myTimesheet.click();
 	}
 	
-	String LeaveList = "https://opensource-demo.orangehrmlive.com/web/index.php/leave/viewLeaveList";
+	public boolean isTimeAtWorkDisplayed() {
+		return timeAtWork.isDisplayed();
+	}
+	
+	public boolean isMyActionsDisplayed() {
+		return myActions.isDisplayed();
+	}
+	
+	public boolean isQuickLaunchDisplayed() {
+		return quickLaunch.isDisplayed();
+	}
+	
+	public boolean isBuzzPostsDisplayed() {
+		return buzzPosts.isDisplayed();
+	}
+
+	public boolean isDistributionByUnitDisplayed() {
+		return distributionByUnit.isDisplayed();
+	}
+	
+	public boolean isDistributionByLocationDisplayed() {
+		return distributionByLocation.isDisplayed();
+	}
 }
