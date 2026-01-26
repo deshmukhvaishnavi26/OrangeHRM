@@ -1,5 +1,7 @@
 package PomPack;
 
+import java.util.List;
+
 import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
@@ -10,6 +12,9 @@ public class PIMPOM {
 
 	@FindBy (xpath = "//button[normalize-space()='Add']")
 	private WebElement add;
+	
+	@FindBy (xpath = "//h6[text()='Add Employee']")
+	private WebElement addEmployeeHeader;
 	
 	@FindBy (xpath = "//input[@name='firstName']")
 	private WebElement firstname;
@@ -26,12 +31,19 @@ public class PIMPOM {
 	@FindBy (xpath = "//div[@class='orangehrm-edit-employee-name']//h6")
 	private WebElement employeeName;
 	
+	@FindBy (xpath = "//span[text()='Required']")
+	private List<WebElement> requiredMessage;
+	
 	public PIMPOM(WebDriver driver) {
 		PageFactory.initElements(driver, this);
 	}
 	
 	public void clickOnAdd() {
 		add.click();
+	}
+	
+	public boolean isAddEmployeeHeaderDisplayed() {
+		return addEmployeeHeader.isDisplayed();
 	}
 	
 	public void enterFirstname(String name) {
@@ -42,8 +54,12 @@ public class PIMPOM {
 		lastname.sendKeys(name);
 	}
 	
-	public WebElement clearEmployeeId() {
+	public WebElement getEmployeeId() {
 		return employeeId;
+	}
+	
+	public void clickOnEmployeeId() {
+		employeeId.click();
 	}
 	
 	public void enterEmployeeId(String id) {
@@ -53,11 +69,24 @@ public class PIMPOM {
 		employeeId.sendKeys(id);
 	}
 	
+	public WebElement getSave() {
+		return save;
+	}
+	
 	public void clickOnSave() {
 		save.click();
 	}
 	
 	public boolean isEmployeeNameDisplayed() {
 		return employeeName.isDisplayed();
+	}
+	
+	public boolean isRequiredMessageDisplayed() {
+		if(requiredMessage.size() == 2) {
+			return true;
+		}
+		else {
+			return false;
+		}
 	}
 }
