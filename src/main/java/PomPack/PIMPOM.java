@@ -34,6 +34,23 @@ public class PIMPOM {
 	@FindBy (xpath = "//span[text()='Required']")
 	private List<WebElement> requiredMessage;
 	
+	//Employee List
+	
+	@FindBy (xpath = "//a[text()='Employee List']")
+	private WebElement employeeListHeader;
+	
+	@FindBy (xpath = "//label[normalize-space()='Employee Name'] /ancestor::div[contains(@class,'oxd-input-group')]//input")
+	private WebElement inputEmployeeName;
+	
+	@FindBy (xpath = "//button[normalize-space()='Search']")
+	private WebElement search;
+	
+//	@FindBy (xpath = "//span[contains(normalize-space(), 'Record Found')]")
+//	private WebElement recordFound;
+	
+	@FindBy (xpath = "//div[@class='oxd-table-card']")
+	private List<WebElement> record;
+	
 	public PIMPOM(WebDriver driver) {
 		PageFactory.initElements(driver, this);
 	}
@@ -89,4 +106,26 @@ public class PIMPOM {
 			return false;
 		}
 	}
+	
+	public void clickOnEmployeeList() {
+		employeeListHeader.click();
+	}
+	
+	public void enterEmployeeName(String name) {
+		inputEmployeeName.sendKeys(name);
+	}
+	
+	public void clickOnSearch() {
+		search.click();
+	}
+	
+	public boolean isRecordFound() {
+		if(record.size() >= 1) {
+			return true;
+		}
+		else {
+			return false;
+		}
+	}
+	
 }

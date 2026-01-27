@@ -5,6 +5,8 @@ import java.awt.event.KeyEvent;
 import java.io.IOException;
 
 import org.apache.poi.EncryptedDocumentException;
+import org.openqa.selenium.By;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.testng.annotations.*;
 import BasePack.BaseClass;
@@ -47,7 +49,7 @@ public class PIMTest extends BaseClass {
 		System.out.println("Login successfully");
 	}
 	
-//	@Test
+	@Test
 	public void TestA() throws EncryptedDocumentException, IOException {
 		System.out.println("Test A");
 		System.out.println("Add new employee with valid details");
@@ -55,18 +57,6 @@ public class PIMTest extends BaseClass {
 		pim.clickOnAdd();
 		pim.enterFirstname(UtilityClass.getExcelData(3, 0));
 		pim.enterLastname(UtilityClass.getExcelData(3, 1));
-		UtilityClass.wait(driver).until(ExpectedConditions.elementToBeClickable(pim.getEmployeeId()));
-		pim.clickOnEmployeeId();
-		//select all
-		robot.keyPress(KeyEvent.VK_CONTROL);
-		robot.keyPress(KeyEvent.VK_A);
-		robot.keyRelease(KeyEvent.VK_A);
-		robot.keyRelease(KeyEvent.VK_CONTROL);
-		//delete
-		robot.keyPress(KeyEvent.VK_DELETE);
-		robot.keyRelease(KeyEvent.VK_DELETE);
-		//enter new Id
-		pim.enterEmployeeId(UtilityClass.getExcelData(3, 2));
 		pim.clickOnSave();
 		pim.isEmployeeNameDisplayed();
 	}
@@ -79,14 +69,26 @@ public class PIMTest extends BaseClass {
 		pim.clickOnAdd();
 		Assert.assertTrue(pim.isAddEmployeeHeaderDisplayed());
 		//leaving mandatory fields empty
-		UtilityClass.wait(driver).until(ExpectedConditions.visibilityOf(pim.getSave()));
+		UtilityClass.wait(driver).until(ExpectedConditions.elementToBeClickable(pim.getSave()));
 		pim.clickOnSave();
 		Assert.assertTrue(pim.isRequiredMessageDisplayed());
 		System.out.println("Required Message Displayed Successfully!");
+	}
+	
+	@Test
+	public void TestC() throws EncryptedDocumentException, IOException {
+		System.out.println("Test C");
+		TestA();
+		System.out.println("Test A called and completed : Create Employee");
+		pim.clickOnEmployeeList();
+		pim.enterEmployeeName(UtilityClass.getExcelData(3, 0));
+		pim.clickOnSearch();
+		Assert.assertTrue(pim.isRecordFound());
+		System.out.println("After Search, Name Displayed Successfully!");
 		
 	}
 	
-//	@AfterMethod
+	@AfterMethod
 	public void AfterMethod() {
 		menubar.clickOnDashboardMenu();
 		dashboard.clickOnUserProfile();
