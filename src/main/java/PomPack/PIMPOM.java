@@ -22,7 +22,7 @@ public class PIMPOM {
 	@FindBy (xpath = "//input[@name='lastName']")
 	private WebElement lastname;
 	
-	@FindBy (xpath = "//form[@class='oxd-form']//input[@class='oxd-input oxd-input--active']")
+	@FindBy (xpath = "//label[text()='Employee Id']/ancestor::div[contains(@class,'oxd-input-group')]//input")
 	private WebElement employeeId;
 	
 	@FindBy (xpath = "//button[normalize-space()='Save']")
@@ -42,14 +42,23 @@ public class PIMPOM {
 	@FindBy (xpath = "//label[normalize-space()='Employee Name'] /ancestor::div[contains(@class,'oxd-input-group')]//input")
 	private WebElement inputEmployeeName;
 	
+	@FindBy (xpath = "//label[text()='Employee Id']/ancestor::div[contains(@class,'oxd-input-group')]//input")
+	private WebElement searchinputEmployeeId;
+	
 	@FindBy (xpath = "//button[normalize-space()='Search']")
 	private WebElement search;
 	
 //	@FindBy (xpath = "//span[contains(normalize-space(), 'Record Found')]")
 //	private WebElement recordFound;
 	
-	@FindBy (xpath = "//div[@class='oxd-table-card']")
-	private List<WebElement> record;
+	@FindBy (xpath = "//div[@class='oxd-table-body']//div[@role='row']")
+	private List<WebElement> recordRows;
+	
+	@FindBy (xpath = "//button[contains(@class,'oxd-icon-button')]//i[contains(@class,'bi-trash')]")
+	private WebElement deleteIcon;
+	
+	@FindBy (xpath = "//button[normalize-space()='Yes, Delete']")
+	private WebElement yesDelete;
 	
 	public PIMPOM(WebDriver driver) {
 		PageFactory.initElements(driver, this);
@@ -111,8 +120,20 @@ public class PIMPOM {
 		employeeListHeader.click();
 	}
 	
-	public void enterEmployeeName(String name) {
+	public void searchEmployeeName(String name) {
 		inputEmployeeName.sendKeys(name);
+	}
+	
+	public WebElement getSearchEmployeeId() {
+		return searchinputEmployeeId;
+	}
+	
+	public void searchEmployeeId(String id) {
+		searchinputEmployeeId.sendKeys(id);
+	}
+	
+	public WebElement getSearch() {
+		return search;
 	}
 	
 	public void clickOnSearch() {
@@ -120,12 +141,28 @@ public class PIMPOM {
 	}
 	
 	public boolean isRecordFound() {
-		if(record.size() >= 1) {
+		if(recordRows.size() > 0) {
 			return true;
 		}
 		else {
 			return false;
 		}
+	}
+	
+	public WebElement getDeleteIcon() {
+		return deleteIcon;
+	}
+	
+	public void clickOnDeleteIcon() {
+		deleteIcon.click();
+	}
+	
+	public WebElement getYesDelete() {
+		return yesDelete;
+	}
+	
+	public void clickOnYesDelete() {
+		yesDelete.click();
 	}
 	
 }

@@ -12,7 +12,7 @@ import PomPack.LeavePOM;
 import PomPack.LoginPOM;
 import PomPack.MenuBarPOM;
 import PomPack.TimePOM;
-import UtilityPack.UtilityClass;
+import UtilityPack.Util;
 import junit.framework.Assert;
 
 public class DashboardTest extends BaseClass {
@@ -42,8 +42,8 @@ public class DashboardTest extends BaseClass {
 	
 	@BeforeMethod
 	public void login() throws EncryptedDocumentException, IOException {
-		login.enterUsername(UtilityClass.getExcelData(0, 0));
-		login.enterPassword(UtilityClass.getExcelData(0, 1));
+		login.enterUsername(Util.getExcelData(0, 0));
+		login.enterPassword(Util.getExcelData(0, 1));
 		login.clickOnLogin();
 		System.out.println("Login successfully");
 	}

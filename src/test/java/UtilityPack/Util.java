@@ -10,7 +10,7 @@ import org.apache.poi.ss.usermodel.WorkbookFactory;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.support.ui.WebDriverWait;
 
-public class UtilityClass {
+public class Util {
 
 	public static String getExcelData(int row, int cell) throws EncryptedDocumentException, IOException {
 		FileInputStream file = new FileInputStream("D:\\Testing_Workspace\\OrangeHRM\\src\\test\\resources\\ExcelData.xlsx");

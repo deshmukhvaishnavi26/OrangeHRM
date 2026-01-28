@@ -10,10 +10,10 @@ public class LoginPOM {
 	@FindBy (xpath = "//h5[normalize-space()='Login']")
 	private WebElement loginHeader;
 	
-	@FindBy (xpath = "//input[@placeholder='Username']")
+	@FindBy (xpath = "//input[@name='username']")
 	private WebElement username;
 	
-	@FindBy (xpath = "//input[@placeholder='Password']")
+	@FindBy (xpath = "//input[@name='password']")
 	private WebElement password;
 	
 	@FindBy (xpath = "//button[normalize-space()='Login']")

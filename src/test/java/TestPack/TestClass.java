@@ -7,7 +7,7 @@ import org.testng.annotations.*;
 import BasePack.BaseClass;
 import PomPack.DashboardPOM;
 import PomPack.LoginPOM;
-import UtilityPack.UtilityClass;
+import UtilityPack.Util;
 import junit.framework.Assert;
 
 public class TestClass extends BaseClass {
@@ -32,8 +32,8 @@ public class TestClass extends BaseClass {
 	public void TestA() throws EncryptedDocumentException, IOException {
 		System.out.println("Test A");
 		System.out.println("Verify Login with Valid Username and Password");
-		login.enterUsername(UtilityClass.getExcelData(0,0));
-		login.enterPassword(UtilityClass.getExcelData(0, 1));
+		login.enterUsername(Util.getExcelData(0,0));
+		login.enterPassword(Util.getExcelData(0, 1));
 		login.clickOnLogin();
 		Assert.assertTrue(dashboard.isDashboardDisplayed());
 		System.out.println("Test Case 1 Successfully Executed!");
@@ -53,8 +53,8 @@ public class TestClass extends BaseClass {
 	public void TestC() throws EncryptedDocumentException, IOException {
 		System.out.println("TestC");
 		System.out.println("Verify login with invalid username");
-		login.enterUsername(UtilityClass.getExcelData(1, 0));
-		login.enterPassword(UtilityClass.getExcelData(1, 1));
+		login.enterUsername(Util.getExcelData(1, 0));
+		login.enterPassword(Util.getExcelData(1, 1));
 		login.clickOnLogin();
 		Assert.assertTrue(login.isInvalidCredlsDisplayed());
 		System.out.println("Error message Displayed!");
@@ -64,8 +64,8 @@ public class TestClass extends BaseClass {
 	public void TestD() throws EncryptedDocumentException, IOException {
 		System.out.println("TestD");
 		System.out.println("Verify login with invalid password");
-		login.enterUsername(UtilityClass.getExcelData(2, 0));
-		login.enterPassword(UtilityClass.getExcelData(2, 1));
+		login.enterUsername(Util.getExcelData(2, 0));
+		login.enterPassword(Util.getExcelData(2, 1));
 		login.clickOnLogin();
 		Assert.assertTrue(login.isInvalidCredlsDisplayed());
 		System.out.println("Error message Displayed!");
