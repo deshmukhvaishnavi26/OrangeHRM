@@ -67,6 +67,33 @@ public class PIMPOM {
 	@FindBy (xpath = "//h6[text()='Personal Details']")
 	private WebElement personalDetailsHeader;
 	
+	@FindBy (xpath = "//label[text()='Date of Birth']/ancestor::div[contains(@class,'oxd-grid-item')]//input")
+	private WebElement dateOfBirth;
+	
+	@FindBy (xpath = "//li[@class='oxd-calendar-selector-month']")
+	private WebElement month;
+	
+	@FindBy (xpath = "//ul[@class='oxd-calendar-dropdown']//li[text()='October']")
+	private WebElement october;
+	
+	@FindBy (xpath = "//li[@class='oxd-calendar-selector-year']")
+	private WebElement year;
+	
+	@FindBy (xpath = "//li[text()='2001']")
+	private WebElement selectYear;
+	
+	@FindBy (xpath = "//div[text()='26']")
+	private WebElement date;
+	
+	@FindBy (xpath = "//div[@class='oxd-radio-wrapper']//label[text()='Female']")
+	private WebElement female;
+	
+	@FindBy (xpath = "//div[@class='oxd-radio-wrapper']//label[text()='Female']//input")
+	private WebElement femaleSelected;
+	
+	@FindBy (xpath = "//div[contains(@class,'orangehrm-horizontal')]//button[normalize-space()='Save']")
+	private WebElement detailsSave;
+	
 	public PIMPOM(WebDriver driver) {
 		PageFactory.initElements(driver, this);
 	}
@@ -93,13 +120,6 @@ public class PIMPOM {
 	
 	public void clickOnEmployeeId() {
 		employeeId.click();
-	}
-	
-	public void enterEmployeeId(String id) {
-//		employeeId.sendKeys(Keys.CONTROL + "a");
-//		employeeId.sendKeys(Keys.DELETE);
-		employeeId.clear();
-		employeeId.sendKeys(id);
 	}
 	
 	public WebElement getSave() {
@@ -182,6 +202,54 @@ public class PIMPOM {
 	
 	public boolean isPersonalDetailsDisplayed() {
 		return personalDetailsHeader.isDisplayed();
+	}
+	
+	public  WebElement getDateOfBirth() {
+		return dateOfBirth;
+	}
+	
+	public void clickOnDateOfBirth() {
+		dateOfBirth.click();
+	}
+	
+	public void clickOnMonth() {
+		month.click();
+	}
+	
+	public void selectMonth() {
+		october.click();
+	}
+	
+	public void clickOnYear() {
+		year.click();
+	}
+	
+	public void selectYear() {
+		selectYear.click();
+	}
+	
+	public void selectDate() {
+		date.click();
+	}
+	
+	public WebElement getGender() {
+		return female;
+	}
+	
+	public void selectGender() {
+		female.click();
+	}
+	
+	public WebElement getFemaleSelected() {
+		return femaleSelected;
+	}
+	
+	public boolean isFemaleSelected() {
+		return femaleSelected.isSelected();
+	}
+	
+	public void clickOndetailsSave() {
+		detailsSave.click();
 	}
 	
 }

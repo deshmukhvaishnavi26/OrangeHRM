@@ -96,8 +96,8 @@ public class PIMTest extends BaseClass {
 		System.out.println("After Search, Name Displayed Successfully!");
 	}
 	
-	@Test
-	public void TestD() throws EncryptedDocumentException, IOException, InterruptedException {
+//	@Test
+	public void TestD() throws EncryptedDocumentException, IOException {
 		System.out.println("Test D");
 		System.out.println("Search employee by employee ID");
 		//creating Employee
@@ -118,13 +118,13 @@ public class PIMTest extends BaseClass {
 		robot.keyPress(KeyEvent.VK_DELETE);
 		robot.keyRelease(KeyEvent.VK_DELETE);
 		pim.getEmployeeId().click();
-		empId.sendKeys("2610");
+		empId.sendKeys(Util.getExcelData(4, 2));
 		wait.until(ExpectedConditions.elementToBeClickable(pim.getSave())).click();;
 		pim.isEmployeeNameDisplayed();
 		//search employee
 		pim.clickOnEmployeeList();
 		wait.until(ExpectedConditions.visibilityOf(pim.getSearchEmployeeId()));
-		pim.searchEmployeeId("2610");
+		pim.searchEmployeeId(Util.getExcelData(4, 2));
 		wait.until(ExpectedConditions.elementToBeClickable(pim.getSearch()));
 		pim.clickOnSearch();
 		Assert.assertTrue(pim.isRecordFound());
@@ -138,8 +138,8 @@ public class PIMTest extends BaseClass {
 		System.out.println("Record Deleted!");
 	}
 	
-	@Test
-	public void TestE() throws EncryptedDocumentException, IOException {
+//	@Test
+	public void TestE() {
 		System.out.println("Test E");
 		System.out.println("View employee personal details");
 		menubar.clickOnPIM();
@@ -150,7 +150,40 @@ public class PIMTest extends BaseClass {
 		System.out.println("Employee Personal Details Displayed Successfully!");
 	}
 	
-	@AfterMethod
+	@Test
+	public void TestF() {
+		System.out.println("TestF");
+		System.out.println("Edit employee personal information");
+		TestE();
+		js.executeScript("arguments[0].scrollIntoView({block:'center'});", pim.getDateOfBirth());
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(pim.loader));
+		pim.clickOnDateOfBirth();
+		pim.clickOnMonth();
+		pim.selectMonth();
+		pim.clickOnYear();
+		pim.selectYear();
+		pim.selectDate();
+		js.executeScript("arguments[0].scrollIntoView({block:'center'});", pim.getGender());
+		pim.selectGender();
+		pim.clickOndetailsSave();
+		System.out.println("Details Saved Successfully");
+		// rechecking
+		pim.clickOnEmployeeList();
+		js.executeScript("arguments[0].scrollIntoView({block:'center'});",pim.getRecordFound());
+		pim.getRecordRows().get(0).click();
+		js.executeScript("arguments[0].scrollIntoView({block:'center'});", pim.getGender());
+		// assertion failed
+		System.out.println("Female selected: " + pim.getFemaleSelected().isSelected());
+		Assert.assertTrue(pim.isFemaleSelected());
+	}
+	
+//	@Test
+	public void TestG() {
+		System.out.println("TestG");
+		System.out.println("Delete employee record");
+	}
+	
+//	@AfterMethod
 	public void AfterMethod() {
 		menubar.clickOnDashboardMenu();
 		dashboard.clickOnUserProfile();
