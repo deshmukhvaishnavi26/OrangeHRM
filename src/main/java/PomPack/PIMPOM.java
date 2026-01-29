@@ -2,7 +2,7 @@ package PomPack;
 
 import java.util.List;
 
-import org.openqa.selenium.Keys;
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
@@ -48,8 +48,8 @@ public class PIMPOM {
 	@FindBy (xpath = "//button[normalize-space()='Search']")
 	private WebElement search;
 	
-//	@FindBy (xpath = "//span[contains(normalize-space(), 'Record Found')]")
-//	private WebElement recordFound;
+	@FindBy (xpath = "//span[contains(normalize-space(), 'Records Found')]")
+	private WebElement recordFound;
 	
 	@FindBy (xpath = "//div[@class='oxd-table-body']//div[@role='row']")
 	private List<WebElement> recordRows;
@@ -59,6 +59,13 @@ public class PIMPOM {
 	
 	@FindBy (xpath = "//button[normalize-space()='Yes, Delete']")
 	private WebElement yesDelete;
+	
+	public By deleteIcon2 = By.xpath("//button[contains(@class,'oxd-icon-button')]//i[contains(@class,'bi-trash')]");
+	public By yesDelete2  = By.xpath("//button[normalize-space()='Yes, Delete']");
+	public By loader     = By.xpath("//div[contains(@class,'oxd-form-loader')]");
+	
+	@FindBy (xpath = "//h6[text()='Personal Details']")
+	private WebElement personalDetailsHeader;
 	
 	public PIMPOM(WebDriver driver) {
 		PageFactory.initElements(driver, this);
@@ -140,6 +147,14 @@ public class PIMPOM {
 		search.click();
 	}
 	
+	public WebElement getRecordFound() {
+		return recordFound;
+	}
+	
+	public List<WebElement> getRecordRows() {
+		return recordRows;
+	}
+	
 	public boolean isRecordFound() {
 		if(recordRows.size() > 0) {
 			return true;
@@ -163,6 +178,10 @@ public class PIMPOM {
 	
 	public void clickOnYesDelete() {
 		yesDelete.click();
+	}
+	
+	public boolean isPersonalDetailsDisplayed() {
+		return personalDetailsHeader.isDisplayed();
 	}
 	
 }

@@ -7,10 +7,10 @@ import java.io.IOException;
 import org.apache.poi.EncryptedDocumentException;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.annotations.*;
 import BasePack.BaseClass;
 import PomPack.DashboardPOM;
@@ -28,7 +28,7 @@ public class PIMTest extends BaseClass {
 	PIMPOM pim;
 	Actions actions;
 	JavascriptExecutor js;
-	
+	WebDriverWait wait;
 	Robot robot;
 	
 	@BeforeClass
@@ -38,6 +38,7 @@ public class PIMTest extends BaseClass {
 		dashboard = new DashboardPOM(driver);
 		menubar = new MenuBarPOM(driver);
 		pim = new PIMPOM(driver);
+		wait = Util.wait(driver);
 		robot = new Robot();
 		actions = new Actions(driver);
 		js = (JavascriptExecutor) driver;
@@ -105,8 +106,9 @@ public class PIMTest extends BaseClass {
 		pim.enterFirstname(Util.getExcelData(4, 0));
 		pim.enterLastname(Util.getExcelData(4, 1));
 		WebElement empId = pim.getEmployeeId();
-		Util.wait(driver).until(ExpectedConditions.visibilityOf(empId));
-		Util.wait(driver).until(ExpectedConditions.elementToBeClickable(empId));
+		//wait for loader to disappear
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(By.xpath("//div[contains(@class,'oxd-form-loader')]")));
+		wait.until(ExpectedConditions.elementToBeClickable(empId));
 		//clear id
 		empId.click();
 		robot.keyPress(KeyEvent.VK_CONTROL);
@@ -117,32 +119,38 @@ public class PIMTest extends BaseClass {
 		robot.keyRelease(KeyEvent.VK_DELETE);
 		pim.getEmployeeId().click();
 		empId.sendKeys("2610");
-		Util.wait(driver).until(ExpectedConditions.elementToBeClickable(pim.getSave())).click();;
+		wait.until(ExpectedConditions.elementToBeClickable(pim.getSave())).click();;
 		pim.isEmployeeNameDisplayed();
 		//search employee
 		pim.clickOnEmployeeList();
-		Util.wait(driver).until(ExpectedConditions.visibilityOf(pim.getSearchEmployeeId()));
+		wait.until(ExpectedConditions.visibilityOf(pim.getSearchEmployeeId()));
 		pim.searchEmployeeId("2610");
-		Util.wait(driver).until(ExpectedConditions.elementToBeClickable(pim.getSearch()));
+		wait.until(ExpectedConditions.elementToBeClickable(pim.getSearch()));
 		pim.clickOnSearch();
 		Assert.assertTrue(pim.isRecordFound());
 		System.out.println("Search employee by Employee Id Successful!");
-		js.executeScript("arguments[0].scrollIntoView(true);", pim.getDeleteIcon());
-		Util.wait(driver).until(ExpectedConditions.elementToBeClickable(pim.getDeleteIcon())).click();
-		pim.clickOnDeleteIcon();
-		Util.wait(driver).until(ExpectedConditions.elementToBeClickable(pim.getYesDelete()));
-		pim.clickOnYesDelete();
+		//delete record
+		wait.until(ExpectedConditions.invisibilityOfElementLocated(pim.loader));
+		WebElement delete = wait.until(ExpectedConditions.elementToBeClickable(pim.deleteIcon2));
+		js.executeScript("arguments[0].scrollIntoView({block: 'center'});", delete);
+		delete.click();
+		wait.until(ExpectedConditions.elementToBeClickable(pim.yesDelete2)).click();
 		System.out.println("Record Deleted!");
 	}
 	
-//	@Test
+	@Test
 	public void TestE() throws EncryptedDocumentException, IOException {
 		System.out.println("Test E");
 		System.out.println("View employee personal details");
-		
+		menubar.clickOnPIM();
+		pim.clickOnEmployeeList();
+		js.executeScript("arguments[0].scrollIntoView({block:'center'});",pim.getRecordFound());
+		pim.getRecordRows().get(0).click();
+		Assert.assertTrue(pim.isPersonalDetailsDisplayed());
+		System.out.println("Employee Personal Details Displayed Successfully!");
 	}
 	
-//	@AfterMethod
+	@AfterMethod
 	public void AfterMethod() {
 		menubar.clickOnDashboardMenu();
 		dashboard.clickOnUserProfile();
