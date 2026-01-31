@@ -150,7 +150,7 @@ public class PIMTest extends BaseClass {
 		System.out.println("Employee Personal Details Displayed Successfully!");
 	}
 	
-	@Test
+//	@Test
 	public void TestF() {
 		System.out.println("TestF");
 		System.out.println("Edit employee personal information");
@@ -175,12 +175,18 @@ public class PIMTest extends BaseClass {
 		// assertion failed
 		System.out.println("Female selected: " + pim.getFemaleSelected().isSelected());
 		Assert.assertTrue(pim.isFemaleSelected());
+		
 	}
 	
-//	@Test
+	@Test
 	public void TestG() {
 		System.out.println("TestG");
 		System.out.println("Delete employee record");
+		menubar.clickOnPIM();
+		pim.clickOnEmployeeList();
+		js.executeScript("arguments[0].scrollIntoView({block:'center'});",pim.getRecordFound());
+		pim.getDeleteButtons().get(0).click();
+		pim.clickOnYesDelete();
 	}
 	
 //	@AfterMethod

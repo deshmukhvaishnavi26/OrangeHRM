@@ -91,8 +91,14 @@ public class PIMPOM {
 	@FindBy (xpath = "//div[@class='oxd-radio-wrapper']//label[text()='Female']//input")
 	private WebElement femaleSelected;
 	
+	@FindBy (xpath = "//input[@type='radio' ]")
+	private WebElement female2;
+	
 	@FindBy (xpath = "//div[contains(@class,'orangehrm-horizontal')]//button[normalize-space()='Save']")
 	private WebElement detailsSave;
+	
+	@FindBy (xpath = "//i[contains(@class,'bi-trash')]/parent::button")
+	private List<WebElement> deleteButtons;
 	
 	public PIMPOM(WebDriver driver) {
 		PageFactory.initElements(driver, this);
@@ -237,7 +243,7 @@ public class PIMPOM {
 	}
 	
 	public void selectGender() {
-		female.click();
+		femaleSelected.click();
 	}
 	
 	public WebElement getFemaleSelected() {
@@ -251,5 +257,15 @@ public class PIMPOM {
 	public void clickOndetailsSave() {
 		detailsSave.click();
 	}
+	
+	public WebElement getFemale2() {
+		return female2;
+	}
+	
+	public List<WebElement> getDeleteButtons() {
+		return deleteButtons;
+	}
+	
+	
 	
 }
